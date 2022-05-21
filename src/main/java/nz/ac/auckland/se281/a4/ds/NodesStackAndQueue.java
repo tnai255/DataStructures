@@ -23,10 +23,11 @@ public class NodesStackAndQueue<T> {
 	 * @return true if the stack / queue is empty
 	 */
 	public boolean isEmpty() {
+		// if head is null then stack/queue is empty
 		if (head == null) {
 			return true;
 		}
-
+		// if condition is not true it must be the case that stack/queue is not empty
 		return false;
 	}
 
@@ -37,9 +38,12 @@ public class NodesStackAndQueue<T> {
 	 * @param element the element to be "pushed"
 	 */
 	public void push(T element) {
-		Node n = new Node(element);
-		throw new java.lang.UnsupportedOperationException("Not supported yet.");
-
+		// creates a generic node of the inputted element
+		Node<T> n = new Node<T>(element);
+		// pushes the current head to the next node
+		n.setNext(head);
+		// makes the new element the head (adds to the top)
+		head = n;
 	}
 
 	/**
