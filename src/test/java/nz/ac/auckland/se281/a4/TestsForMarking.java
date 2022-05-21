@@ -33,9 +33,8 @@ import nz.ac.auckland.se281.a4.ds.NodesStackAndQueue;
 @RunWith(Suite.class)
 @SuiteClasses({
 
-		TestsForMarking.Task1NodeStackAndQueueTest.class,
-//		TestsForMarking.Task1NodeStackAndQueueGenericsTest.class,
-//		TestsForMarking.Task1NodeStackAndQueueExceptionTest.class,
+		TestsForMarking.Task1NodeStackAndQueueTest.class, TestsForMarking.Task1NodeStackAndQueueGenericsTest.class,
+		TestsForMarking.Task1NodeStackAndQueueExceptionTest.class,
 //
 //		TestsForMarking.Task2LinkedListTest.class,
 //		TestsForMarking.Task2LinkedListGenericsTest.class,

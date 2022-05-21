@@ -47,15 +47,29 @@ public class NodesStackAndQueue<T> {
 	}
 
 	/**
-	 * pop an element from the top of the stack (removes and returns the tope
+	 * pop an element from the top of the stack (removes and returns the top
 	 * element) TODO: Complete this method (Note: You may have to change the return
 	 * type)
 	 * 
 	 * @return object of the top element
 	 * @throws EmptyStackException if the stack is empty
 	 */
-	public Node pop() throws EmptyStackException {
-		throw new java.lang.UnsupportedOperationException("Not supported yet.");
+	public Node<T> pop() throws EmptyStackException {
+
+		// creates a variable to hold the element at the top
+		Node<T> top = head;
+
+		// checks if stack is empty or not by checking if head is null
+		if (head != null) {
+			// changes the head to the the element below the head (removes top)
+			head = head.getNext();
+			// returns the element that was the element
+			return top;
+		} else {
+			// throws exception to say it is empty
+			throw new EmptyStackException();
+		}
+
 	}
 
 	/**
