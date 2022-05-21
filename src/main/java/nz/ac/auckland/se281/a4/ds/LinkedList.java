@@ -89,8 +89,7 @@ public class LinkedList<T> {
 	// Note this method has been refactored using the helper methods
 	// I will do this as a small ACP exercise in class
 	public void append(T element) {
-		Node t = new Node(element);
-		throw new java.lang.UnsupportedOperationException("Not supported yet.");
+		Node<T> n = new Node<T>(element);
 
 	}
 
@@ -104,7 +103,9 @@ public class LinkedList<T> {
 	 *                                  size-1
 	 */
 	public T get(int pos) throws InvalidPositionException {
-		throw new java.lang.UnsupportedOperationException("Not supported yet.");
+
+		// calls locate node then gets the value stored in the node
+		return locateNode(pos).getValue();
 	}
 
 	/**
