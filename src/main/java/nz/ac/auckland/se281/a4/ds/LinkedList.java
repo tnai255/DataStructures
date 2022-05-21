@@ -73,9 +73,10 @@ public class LinkedList<T> {
 	 * @param element a parameter, which is the value of the node to be prepended
 	 */
 	public void prepend(T element) {
-		Node n = new Node(element);
-		throw new java.lang.UnsupportedOperationException("Not supported yet.");
-
+		Node<T> n = new Node<T>(element);
+		// node points to current and makes current head the input element
+		n.setNext(head);
+		head = n;
 	}
 
 	/**
