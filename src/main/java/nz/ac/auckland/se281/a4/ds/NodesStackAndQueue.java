@@ -38,7 +38,7 @@ public class NodesStackAndQueue<T> {
 	 * @param element the element to be "pushed"
 	 */
 	public void push(T element) {
-		// creates a generic node of the inputted element
+		// creates a generic node of the input element
 		Node<T> n = new Node<T>(element);
 		// pushes the current head to the next node
 		n.setNext(head);
@@ -56,11 +56,10 @@ public class NodesStackAndQueue<T> {
 	 */
 	public T pop() throws EmptyStackException {
 
-		// creates a variable to hold the value of top element
-		T top = head.getValue();
-
 		// checks if stack is empty or not
-		if (isEmpty()) {
+		if (!isEmpty()) {
+			// creates a variable to hold the value of top element
+			T top = head.getValue();
 			// changes the head to the the element below the head (removes top)
 			head = head.getNext();
 			// returns the value that was the top
@@ -82,7 +81,7 @@ public class NodesStackAndQueue<T> {
 	public T peek() throws EmptyStackException {
 
 		// checks if stack is empty or not
-		if (isEmpty()) {
+		if (!isEmpty()) {
 			// returns the value of the top element
 			return head.getValue();
 		} else {
@@ -98,7 +97,24 @@ public class NodesStackAndQueue<T> {
 	 * @param element the element to be appended
 	 */
 	public void append(T element) {
-		Node n = new Node(element);
-		throw new java.lang.UnsupportedOperationException("Not supported yet.");
+		Node<T> n = new Node<T>(element);
+
+		if (!isEmpty()) {
+			// initialise last node to head
+			Node<T> last = head;
+
+			// loops until the last node is found i.e. next node would be null
+			while (last.getNext() != null) {
+				// if there is a next node then that becomes the "last" node
+				last = last.getNext();
+			}
+
+			// once it finds the last node it appends the input element to it
+			last.setNext(n);
+		} else {
+			// queue is empty appending means it becomes the head
+			head = n;
+		}
+
 	}
 }
