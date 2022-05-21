@@ -54,16 +54,16 @@ public class NodesStackAndQueue<T> {
 	 * @return object of the top element
 	 * @throws EmptyStackException if the stack is empty
 	 */
-	public Node<T> pop() throws EmptyStackException {
+	public T pop() throws EmptyStackException {
 
-		// creates a variable to hold the element at the top
-		Node<T> top = head;
+		// creates a variable to hold the value of top element
+		T top = head.getValue();
 
-		// checks if stack is empty or not by checking if head is null
-		if (head != null) {
+		// checks if stack is empty or not
+		if (isEmpty()) {
 			// changes the head to the the element below the head (removes top)
 			head = head.getNext();
-			// returns the element that was the element
+			// returns the value that was the top
 			return top;
 		} else {
 			// throws exception to say it is empty
@@ -79,8 +79,17 @@ public class NodesStackAndQueue<T> {
 	 * @return the value of the top element
 	 * @throws EmptyStackException if the stack is empty
 	 */
-	public Node peek() throws EmptyStackException {
-		throw new java.lang.UnsupportedOperationException("Not supported yet.");
+	public T peek() throws EmptyStackException {
+
+		// checks if stack is empty or not
+		if (isEmpty()) {
+			// returns the value of the top element
+			return head.getValue();
+		} else {
+			// throws exception to say it is empty
+			throw new EmptyStackException();
+		}
+
 	}
 
 	/**
