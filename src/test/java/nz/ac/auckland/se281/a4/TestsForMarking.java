@@ -20,28 +20,35 @@ import org.junit.runners.MethodSorters;
 import org.junit.runners.Suite;
 import org.junit.runners.Suite.SuiteClasses;
 
-import nz.ac.auckland.se281.a4.cli.*;
-import nz.ac.auckland.se281.a4.ds.*;
+import nz.ac.auckland.se281.a4.cli.Dataloader;
+import nz.ac.auckland.se281.a4.cli.GraphControl;
+import nz.ac.auckland.se281.a4.cli.GraphUI;
+import nz.ac.auckland.se281.a4.ds.Edge;
+import nz.ac.auckland.se281.a4.ds.Graph;
+import nz.ac.auckland.se281.a4.ds.InvalidPositionException;
+import nz.ac.auckland.se281.a4.ds.LinkedList;
+import nz.ac.auckland.se281.a4.ds.Node;
+import nz.ac.auckland.se281.a4.ds.NodesStackAndQueue;
 
 @RunWith(Suite.class)
 @SuiteClasses({
 
 		TestsForMarking.Task1NodeStackAndQueueTest.class,
-		TestsForMarking.Task1NodeStackAndQueueGenericsTest.class,
-		TestsForMarking.Task1NodeStackAndQueueExceptionTest.class,
-
-		TestsForMarking.Task2LinkedListTest.class,
-		TestsForMarking.Task2LinkedListGenericsTest.class,
-
-		TestsForMarking.Task3ReflexiveTest.class,
-		TestsForMarking.Task3SymmetricTest.class,
-		TestsForMarking.Task3TransitiveTest.class,
-		TestsForMarking.Tast3EquivalenceTest.class,
-		TestsForMarking.Task3EquivalenceClassTest.class,
-		TestsForMarking.Task3BFSTest.class,
-		TestsForMarking.Task3DFSTest.class,
-
-		TestsForMarking.Task4SearchTweetTest.class,
+//		TestsForMarking.Task1NodeStackAndQueueGenericsTest.class,
+//		TestsForMarking.Task1NodeStackAndQueueExceptionTest.class,
+//
+//		TestsForMarking.Task2LinkedListTest.class,
+//		TestsForMarking.Task2LinkedListGenericsTest.class,
+//
+//		TestsForMarking.Task3ReflexiveTest.class,
+//		TestsForMarking.Task3SymmetricTest.class,
+//		TestsForMarking.Task3TransitiveTest.class,
+//		TestsForMarking.Tast3EquivalenceTest.class,
+//		TestsForMarking.Task3EquivalenceClassTest.class,
+//		TestsForMarking.Task3BFSTest.class,
+//		TestsForMarking.Task3DFSTest.class,
+//
+//		TestsForMarking.Task4SearchTweetTest.class,
 
 })
 public class TestsForMarking {
