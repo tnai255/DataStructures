@@ -1,6 +1,5 @@
 package nz.ac.auckland.se281.a4.ds;
 
-import java.util.NoSuchElementException;
 //*******************************
 //YOU SHOUD MODIFY THE SPECIFIED 
 //METHODS  OF THIS CLASS
@@ -36,11 +35,35 @@ public class LinkedList<T> {
 	 * @return Node: the reference to the Node at position pos
 	 * @throws InvalidPositionException if position is less than 0 or greater than
 	 *                                  size-1
-	 * @throws NoSuchElementException   if the element does not exist in the
-	 *                                  LinkedList
 	 */
 	private Node<T> locateNode(int pos) throws InvalidPositionException {
 
+		Node<T> temp = head;
+		Node<T> node = head;
+
+		// checks the validity of the position input
+		if (pos < 0 || pos > (size() - 1)) {
+			throw new InvalidPositionException("Position is invalid");
+		} else {
+
+			// initialises index as 0
+			int i = 0;
+
+			// loops through the nodes
+			while (temp != null) {
+				// checks if the index is equal to the position
+				if (i == pos) {
+					// assigns the node temp node
+					node = temp;
+					break;
+				} else {
+					// if position is not correct it moves to the next node and increments index
+					temp = temp.getNext();
+					i++;
+				}
+			}
+		}
+		return node;
 	}
 
 	/**
