@@ -150,6 +150,17 @@ public class LinkedList<T> {
 	 */
 	public void remove(int pos) throws InvalidPositionException {
 
+		// checks if the position is 0 then makes it head
+		if (pos == 0) {
+			head = head.getNext();
+			// if last position then resets the last one to null
+		} else if (pos == (size() - 1)) {
+			locateNode(pos - 1).setNext(null);
+			// else it connects the position before to the position after (hence removing
+			// the node)
+		} else {
+			locateNode(pos - 1).setNext(locateNode(pos + 1));
+		}
 	}
 
 	/**
