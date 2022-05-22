@@ -91,6 +91,14 @@ public class LinkedList<T> {
 	public void append(T element) {
 		Node<T> n = new Node<T>(element);
 
+		// checks if the size is 0 then it appends by making the node head
+		if (size() == 0) {
+			prepend(element);
+		} else {
+			// calls the locate node method and finds the last node then sets note
+			locateNode(size() - 1).setNext(n);
+		}
+
 	}
 
 	/**
@@ -118,7 +126,20 @@ public class LinkedList<T> {
 	 *                                  size
 	 */
 	public void insert(int pos, T element) throws InvalidPositionException {
-		throw new java.lang.UnsupportedOperationException("Not supported yet.");
+		// creates a new node instance of the input element
+		Node<T> n = new Node<T>(element);
+
+		if (pos == 0) {
+			prepend(element);
+		} else if (pos == size()) {
+			append(element);
+		} else {
+			// sets the node in the current position as the next node
+			n.setNext(locateNode(pos));
+
+			// points the node before the input position to the new node
+			locateNode(pos - 1).setNext(n);
+		}
 
 	}
 
@@ -128,7 +149,6 @@ public class LinkedList<T> {
 	 * @param pos: an integer, which is the position
 	 */
 	public void remove(int pos) throws InvalidPositionException {
-		throw new java.lang.UnsupportedOperationException("Not supported yet.");
 
 	}
 
@@ -147,7 +167,7 @@ public class LinkedList<T> {
 		// while node is not null
 		while (temp != null) {
 			// size increases
-			size++;
+			++size;
 			// temporary node becomes the next node
 			temp = temp.getNext();
 		}
