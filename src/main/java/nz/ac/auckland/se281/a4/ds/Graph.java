@@ -27,6 +27,9 @@ public class Graph {
 	 */
 	protected Node<String> root;
 
+	protected Set<Edge<Node<String>>> edges;
+	protected Set<Node<String>> nodes;
+
 	/**
 	 * !!!!!! You cannot change this method !!!!!!!
 	 */
@@ -75,44 +78,35 @@ public class Graph {
 
 		// Creates an adjacency map with the input relation
 		Graph g = new Graph(relation);
+		// creates a set of nodes and edges
+		nodes = getAllNodes();
+		edges = getAllEdges();
 
 		// First checks if all the node in the set are in the adjacency map
 		for (String element : set) {
 			Node<String> n = new Node<String>(element);
 
 			// if they aren't then it is automatically not reflexive
-			if (!adjacencyMap.containsKey(n)) {
+			if (!nodes.contains(n)) {
 				return false;
 			}
 
 		}
 
-		// initialise a reflexive count to see how many elements are reflexive
-		int reflexiveCount = 0;
-
-		// loops through all the nodes
-		for (Node<String> node : adjacencyMap.keySet()) {
+		// If all elements are present it loops through the nodes
+		for (Node<String> node : nodes) {
 			// creates the desired reflexive edge
 			Edge<Node<String>> reflexive = new Edge<Node<String>>(node, node);
-			// loops through the relations of the current node
-			for (int i = 0; i < adjacencyMap.get(node).size(); i++) {
-				// if the relation equals the desired reflexive edge then count increases
-				if (adjacencyMap.get(node).get(i).equals(reflexive)) {
-					reflexiveCount++;
-					// loop breaks as we don't need to further check
-					break;
-				}
+
+			// checks if the edges set don't contain the desired reflexive edge
+			if (!edges.contains(reflexive)) {
+				// then returns false
+				return false;
 			}
 		}
 
-		// if the reflexive count is the same as the set size then its reflexive for all
-		// elements in set then we return true
-		if (reflexiveCount == adjacencyMap.keySet().size()) {
-			return true;
-		}
-
-		// if these conditions aren't met we return false
-		return false;
+		// if it hasn't returned yet then it is reflexive in which case it returns true
+		return true;
 
 	}
 
@@ -130,7 +124,29 @@ public class Graph {
 	 * @return true if the relation is symmetric
 	 */
 	public boolean isSymmetric(List<String> relation) {
-		throw new java.lang.UnsupportedOperationException();
+
+		// Creates an adjacency map with the input relation
+		Graph g = new Graph(relation);
+
+		// loops through all the nodes
+		for (Node<String> node : adjacencyMap.keySet()) {
+			int symmetricCount = 0;
+			// loops through the relations of the current node
+			for (int i = 0; i < adjacencyMap.get(node).size(); i++) {
+
+				Node<String> target = adjacencyMap.get(node).get(i).getTarget();
+				// creates the desired symmetric edge
+				Edge<Node<String>> symmetric = new Edge<Node<String>>(target, node);
+
+			}
+
+			if (symmetricCount != adjacencyMap.get(node).size()) {
+				return false;
+			}
+		}
+
+		return true;
+
 	}
 
 	/**
