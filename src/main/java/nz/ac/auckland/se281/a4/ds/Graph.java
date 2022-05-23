@@ -213,7 +213,15 @@ public class Graph {
 	 */
 	public boolean isEquivalence(List<String> set, List<String> relation) {
 
-		throw new java.lang.UnsupportedOperationException("Not supported yet.");
+		// checks if the set is reflexive, symmetric and transitive in which case it is
+		// equivalent so return true
+		if (isReflexive(set, relation) && isSymmetric(relation) && isTransitive(relation)) {
+			return true;
+		}
+
+		// if the above condition isn't met it must be the case it is not equivalent
+		// hence return false
+		return false;
 	}
 
 	/**
