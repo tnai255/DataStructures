@@ -128,23 +128,26 @@ public class Graph {
 		// Creates an adjacency map with the input relation
 		Graph g = new Graph(relation);
 
-		// loops through all the nodes
-		for (Node<String> node : adjacencyMap.keySet()) {
-			int symmetricCount = 0;
-			// loops through the relations of the current node
-			for (int i = 0; i < adjacencyMap.get(node).size(); i++) {
+		// creates a set of nodes and edges
+		nodes = getAllNodes();
+		edges = getAllEdges();
 
-				Node<String> target = adjacencyMap.get(node).get(i).getTarget();
-				// creates the desired symmetric edge
-				Edge<Node<String>> symmetric = new Edge<Node<String>>(target, node);
+		// loops through all the edges
+		for (Edge<Node<String>> edge : edges) {
+			// creates the desired symmetric edge by switching the current edge's source and
+			// target
+			Edge<Node<String>> symmetric = new Edge<Node<String>>(edge.getTarget(), edge.getSource());
 
-			}
-
-			if (symmetricCount != adjacencyMap.get(node).size()) {
+			// if the desired symmetric edge is not in the edges set then return false
+			if (!edges.contains(symmetric)) {
+				System.out.println("For the graph to be symmetric tuple: " + symmetric + " MUST be present");
 				return false;
 			}
+
 		}
 
+		// if the condition was never met then the graph must be symmetric in which case
+		// return true
 		return true;
 
 	}
@@ -163,7 +166,39 @@ public class Graph {
 	 * @return true if the relation is transitive
 	 */
 	public boolean isTransitive(List<String> relation) {
-		throw new java.lang.UnsupportedOperationException("Not supported yet.");
+
+		// Creates an adjacency map with the input relation
+		Graph g = new Graph(relation);
+
+		// creates a set of nodes and edges
+		nodes = getAllNodes();
+		edges = getAllEdges();
+
+		// loops through all the edges
+		for (Edge<Node<String>> edge1 : edges) {
+
+			// takes out the source and target of the edge
+			Node<String> source = edge1.getSource();
+			Node<String> target = edge1.getTarget();
+
+			// loops through the edges again
+			for (Edge<Node<String>> edge2 : edges) {
+				// checks if there's an edge thats of the form (y, z) given the edge1 = (x, y)
+				if (edge2.getSource().equals(target)) {
+					// if that is true then it must have the desired transitive edge of (x, z)
+					Edge<Node<String>> transitive = new Edge<Node<String>>(source, edge2.getTarget());
+
+					// if that is not contained in the edge set then return false
+					if (!edges.contains(transitive)) {
+						return false;
+					}
+				}
+			}
+		}
+
+		// if the following conditions aren't met then it must be the case that the
+		// graph is transitive so return true
+		return true;
 
 	}
 
@@ -177,6 +212,7 @@ public class Graph {
 	 * @return true if the set and relation are anti-symmetric
 	 */
 	public boolean isEquivalence(List<String> set, List<String> relation) {
+
 		throw new java.lang.UnsupportedOperationException("Not supported yet.");
 	}
 
