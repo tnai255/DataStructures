@@ -1,5 +1,6 @@
 package nz.ac.auckland.se281.a4.ds;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
@@ -190,6 +191,7 @@ public class Graph {
 
 					// if that is not contained in the edge set then return false
 					if (!edges.contains(transitive)) {
+						System.out.println("For the graph to be transitive tuple: " + transitive + " MUST be present");
 						return false;
 					}
 				}
@@ -240,7 +242,32 @@ public class Graph {
 	 * @return List that is the equivalence class
 	 */
 	public List<String> computeEquivalence(String node, List<String> set, List<String> relation) {
-		throw new java.lang.UnsupportedOperationException("Not supported yet.");
+
+		// Creates an adjacency map with the input relation
+		Graph g = new Graph(relation);
+
+		// creates a set of nodes and edges
+		nodes = getAllNodes();
+		edges = getAllEdges();
+
+		// initialise the output class list
+		List<String> eqClass = new ArrayList<String>();
+
+		// check if the graph is equivalent return null if it is
+		if (!isEquivalence(set, relation)) {
+			return null;
+		}
+
+		// loop through the edges
+		for (Edge<Node<String>> edge : edges) {
+			// find the neighbours of the input node and put that into the class
+			if (edge.getSource().getValue().equals(node)) {
+				eqClass.add(edge.getTarget().getValue());
+			}
+		}
+
+		// return the class list
+		return eqClass;
 	}
 
 	/**
