@@ -43,9 +43,9 @@ public class GraphControl {
 	 * The main method that reads the next user command and processes it until the
 	 * "exit" command is entered
 	 * 
-	 * @throws Exception       Cause something went wrong
-	 * @throws JsonIOException If json file can not be read
-	 * @throws IOException     If file can not be found
+	 * @throws Exception
+	 * @throws JsonIOException
+	 * @throws IOException
 	 */
 	public void execute() throws Exception, JsonIOException, IOException {
 		// initialisation step
@@ -60,12 +60,9 @@ public class GraphControl {
 	/**
 	 * This method processes a given user command
 	 *
-	 * @param command the user command
+	 * @param command
 	 * @return true if another command is required false if we need to terminate the
 	 *         program
-	 * @throws Exception       Cause something went wrong
-	 * @throws JsonIOException If Json can not be read
-	 * @throws IOException     If the file is not found
 	 */
 	public List<Boolean> processCommand(String command) throws Exception, JsonIOException, IOException {
 		boolean isAnotherCommand = true;
@@ -75,6 +72,23 @@ public class GraphControl {
 		String[] parts = command.split(" ");
 
 		switch (parts[0]) {
+		case "help":
+			System.out.println("open <text file> => open a txt file (i.e. open a.txt)>");
+			System.out.println("clear => clear the console");
+			System.out.println("info => provides name of file open");
+			System.out.println("list => list all the nodes and relations between nodes");
+			System.out.println("list-users => list all the twitter handles and nodes");
+			System.out.println(
+					"list-user-tweets <Node> <Number of Tweets to display (optional)> => list all the tweets of a user with an optionally given number");
+			System.out.println("check <option: -r (reflexive), -s (symmetry), -t (transitive), -e (equivalence)>");
+			System.out.println("eq-class <Node> => list all the nodes in the same equivalence class");
+			System.out.println(
+					"tweet-search <Node> <String> => list the first tweet of a user that contain a given string");
+			System.out
+					.println("tgraph-search <BFS/DFS> => list the visited nodes in order of visited using BFS or DFS");
+			System.out.println("exit => terminate the program");
+			break;
+
 		case "open":
 			if (parts.length == 1) {
 				System.out.println("\u001b[31;1mInvalid file name\u001b[0m");
@@ -96,22 +110,50 @@ public class GraphControl {
 			System.out.println(
 					graphUI.getFileName() == null ? "No file opened" : "File opened: " + graphUI.getFileName());
 			break;
-
-		case "help":
-			System.out.println("You can either *open* a file or *list* an opened file or *exit* the program");
-			System.out.println("Once a valid file is open you can perform *search* operations as follows:");
-			System.out.println(
-					"Command *tweet-search* takes a user id and a sub-string from a tweet to determine which follower has a tweet containing this sub-string");
-			System.out.println(
-					"Command *tgraph-search* takes BFS / DFS as an argument to display followers in BFS / DFS order");
-			System.out.println("Command *tweet-size* takes a user id to determine the number of tweets of this user");
-			System.out.println("*clear* to clear the screen");
-			System.out.println("*info* to display current open file name");
-			System.out.println("*exit* to exit the program");
-			break;
 		case "list":
 			if (graphUI.getFileStatus()) {
 				graphUI.list();
+			}
+			break;
+		case "list-users":
+			if (graphUI.getFileStatus()) {
+				for (String string : graphUI.getListTwitterHandle()) {
+					System.out.println(string);
+				}
+			} else {
+				System.out.println("\u001b[31;1mNo file opened\u001b[0m");
+			}
+			break;
+		case "list-user-tweets":
+			if (graphUI.getFileStatus()) {
+				int count = -1;
+				if (parts.length == 3) {
+					count = Integer.parseInt(parts[2]);
+					count++;
+				}
+
+				if (parts.length == 2 || parts.length == 3) {
+					TwitterHandle user = new TwitterHandle(parts[1]);
+					System.out.println(
+							String.format("Twitter Handle %s {%s} has been selected\n", user.getName(), parts[1]));
+					if (graphUI.getSetElements().contains(parts[1])) {
+						int i = 1;
+						for (String string : tweetGraph.getTweetsTexts(user)) {
+							System.out.println(String.format("{%d} %s", i, string));
+							i++;
+							if (i == count) {
+								break;
+							}
+						}
+						System.out.println();
+					} else {
+						System.out.println("\u001b[31;1mInvalid user id\u001b[0m");
+					}
+				} else {
+					System.out.println("\u001b[31;1mInvalid user id (i.e. list-user-tweets 0)\u001b[0m");
+				}
+			} else {
+				System.out.println("\u001b[31;1mNo file opened\u001b[0m");
 			}
 			break;
 		case "check":
@@ -185,7 +227,7 @@ public class GraphControl {
 				System.out.println("No of tweets in User: " + parts[1] + "= "
 						+ tweetGraph.getTweets(new TwitterHandle(parts[1])).size());
 			}
-			createTweetGraph();
+			// createTweetGraph();
 			break;
 		case "tweet-search":
 			if (graphUI.getFileStatus()) {
@@ -194,11 +236,11 @@ public class GraphControl {
 							"\u001b[31mIncorrect arguments for searching a tweet text (i.e. tweet-search User_id String)\u001b[0m");
 					break;
 				}
-				tweetGraph.searchTweet(new TwitterHandle(parts[1]), parts[2]);
+				System.out.println(tweetGraph.searchTweet(new TwitterHandle(parts[1]), parts[2]));
 				System.out.println("No of tweets in User: " + parts[1] + " = "
 						+ tweetGraph.getTweets(new TwitterHandle(parts[1])).size());
 			}
-			createTweetGraph();
+			// createTweetGraph();
 			break;
 		case "tgraph-search":
 			if (graphUI.getFileStatus()) {
@@ -216,13 +258,16 @@ public class GraphControl {
 					break;
 				}
 			}
-			createTweetGraph();
+			// createTweetGraph();
 			break;
 		case "exit":
 			System.out.println("\u001b[32mWe will exit now.. bye!!\u001b[0m");
 			isAnotherCommand = false;
+			break;
+
 		default:
 			System.out.println("\u001b[31mEnter a valid command:\u001b[0m");
+
 		}
 
 		return Arrays.asList(isAnotherCommand, commnadResult);
@@ -231,9 +276,9 @@ public class GraphControl {
 	/**
 	 * This method is used to create the tweet graph`
 	 * 
-	 * @throws Exception       Cause something went wrong
-	 * @throws JsonIOException Throw exception if json file can not be read
-	 * @throws IOException     Throw exception if the file is not found
+	 * @throws Exception
+	 * @throws JsonIOException
+	 * @throws IOException
 	 */
 	private void createTweetGraph() throws Exception, JsonIOException, IOException {
 		tweetGraph = new TweetGraph(graphUI.getRelationElements(), graphUI.loadTweets(),
