@@ -344,7 +344,54 @@ public class Graph {
 	 * @return List of nodes (as strings) using the DFS algorithm
 	 */
 	public List<Node<String>> depthFirstSearch(Node<String> start, boolean rooted) {
-		throw new java.lang.UnsupportedOperationException("Not supported yet.");
+
+		// create a visited set which contains the nodes that have been visited
+		Set<Node<String>> isVisited = new HashSet<>();
+		// creates a stack
+		NodesStackAndQueue<Node<String>> stack = new NodesStackAndQueue<Node<String>>();
+		// create the output dfs list
+		List<Node<String>> dfs = new ArrayList<Node<String>>();
+
+		// loop through all roots
+		for (Node<String> node : adjacencyMap.keySet()) {
+
+			// check if the node is visited or not already
+			if (!isVisited.contains(node)) {
+				// add to the node to visited array
+				isVisited.add(node);
+				// add node to top of stack
+				stack.push(node);
+
+				// loops through while the stack is not empty i.e. while the node has unvisited
+				// neighbours
+				while (!stack.isEmpty()) {
+
+					// sets new node to top of stack and removes it (last in last out)
+					node = stack.pop();
+					// adds this node to the dfs list
+					dfs.add(node);
+
+					// loops through all the neighbours of chosen node
+					for (int i = 0; i < adjacencyMap.get(node).size(); i++) {
+						// gets the neighbour from adjacency map
+						Node<String> next = adjacencyMap.get(node).get(i).getTarget();
+
+						// adds the node to the top of stack if it hasn't been visited and adds it to
+						// the
+						// visited set
+						if (!isVisited.contains(next)) {
+							stack.push(next);
+							isVisited.add(next);
+						}
+					}
+
+				}
+			}
+
+		}
+
+		// returns the bfs list
+		return dfs;
 	}
 
 	/**
