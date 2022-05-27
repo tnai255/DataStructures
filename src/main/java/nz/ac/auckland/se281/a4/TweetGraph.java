@@ -43,6 +43,18 @@ public class TweetGraph extends Graph {
 
 	// search for a keyword in a tweet starting from a given node
 	public String searchTweet(TwitterHandle user, String tweetKeyword) {
-		throw new java.lang.UnsupportedOperationException("Not supported yet.");
+
+		// loops through all the texts of the input user
+		for (String text : getTweetsTexts(user)) {
+			// checks if the string contains the input keyword
+			if (text.contains(tweetKeyword)) {
+				// returns the text, the user, and the key word
+				return "The tweet string found is: " + text + "\nUser " + user.getName() + " {" + user.getID()
+						+ "} tweeted " + tweetKeyword;
+			}
+		}
+
+		// if no text with the keyword was found return null
+		return null;
 	}
 }
