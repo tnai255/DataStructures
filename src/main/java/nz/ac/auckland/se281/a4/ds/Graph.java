@@ -77,8 +77,6 @@ public class Graph {
 	 */
 	public boolean isReflexive(List<String> set, List<String> relation) {
 
-		// Creates an adjacency map with the input relation
-		Graph g = new Graph(relation);
 		// creates a set of nodes and edges
 		nodes = getAllNodes();
 		edges = getAllEdges();
@@ -126,9 +124,6 @@ public class Graph {
 	 */
 	public boolean isSymmetric(List<String> relation) {
 
-		// Creates an adjacency map with the input relation
-		Graph g = new Graph(relation);
-
 		// creates a set of nodes and edges
 		nodes = getAllNodes();
 		edges = getAllEdges();
@@ -167,9 +162,6 @@ public class Graph {
 	 * @return true if the relation is transitive
 	 */
 	public boolean isTransitive(List<String> relation) {
-
-		// Creates an adjacency map with the input relation
-		Graph g = new Graph(relation);
 
 		// creates a set of nodes and edges
 		nodes = getAllNodes();
@@ -243,9 +235,6 @@ public class Graph {
 	 */
 	public List<String> computeEquivalence(String node, List<String> set, List<String> relation) {
 
-		// Creates an adjacency map with the input relation
-		Graph g = new Graph(relation);
-
 		// creates a set of nodes and edges
 		nodes = getAllNodes();
 		edges = getAllEdges();
@@ -288,7 +277,54 @@ public class Graph {
 	 * @return List of nodes (as strings) using the BFS algorithm
 	 */
 	public List<Node<String>> breadthFirstSearch(Node<String> start, boolean rooted) {// name to breadthFirstSearch
-		throw new java.lang.UnsupportedOperationException("Not supported yet.");
+
+		// create a visited set which contains the nodes that have been visited
+		Set<Node<String>> isVisited = new HashSet<>();
+		// creates a queue
+		LinkedList<Node<String>> queue = new LinkedList<Node<String>>();
+		// create the output bfs list
+		List<Node<String>> bfs = new ArrayList<Node<String>>();
+
+		// loop through all roots
+		for (Node<String> node : adjacencyMap.keySet()) {
+
+			// check if the node is visited or not already
+			if (!isVisited.contains(node)) {
+				// add to the node to visited array
+				isVisited.add(node);
+				// add node to queue
+				queue.append(node);
+
+				// loops through while the queue is not 0 i.e. while the node has unvisited
+				// neighbours
+				while (queue.size() != 0) {
+
+					// sets new node to queue and removes it (first in first out)
+					node = queue.get(0);
+					queue.remove(0);
+					// adds this node to the bfs list
+					bfs.add(node);
+
+					// loops through all the neighbours of chosen node
+					for (int i = 0; i < adjacencyMap.get(node).size(); i++) {
+						// gets the neighbour from adjacency map
+						Node<String> next = adjacencyMap.get(node).get(i).getTarget();
+
+						// adds the node to the queue if it hasn't been visited and adds it to the
+						// visited set
+						if (!isVisited.contains(next)) {
+							queue.append(next);
+							isVisited.add(next);
+						}
+					}
+
+				}
+			}
+
+		}
+
+		// returns the bfs list
+		return bfs;
 
 	}
 
