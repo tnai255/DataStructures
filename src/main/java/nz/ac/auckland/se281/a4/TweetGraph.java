@@ -44,6 +44,7 @@ public class TweetGraph extends Graph {
 	// search for a keyword in a tweet starting from a given node
 	public String searchTweet(TwitterHandle user, String tweetKeyword) {
 
+		// loop through all the nodes in dfs order
 		for (Node<String> node : depthFirstSearch(user, true)) {
 			// gets handle by calling helper method
 			TwitterHandle handle = getHandle(node);

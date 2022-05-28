@@ -285,70 +285,52 @@ public class Graph {
 		// create the output bfs list
 		List<Node<String>> bfs = new ArrayList<Node<String>>();
 
+		// adds start node to queue and marks as visited
 		isVisited.add(start);
 		queue.append(start);
 
-		// initialise the queue and bfs with the input start node
-		while (queue.size() != 0) {
+		// loop through all roots
+		for (Node<String> node : adjacencyMap.keySet()) {
 
-			// sets start node to queue and removes it (first in first out)
-			start = queue.get(0);
-			queue.remove(0);
-			// adds start to the bfs list
-			bfs.add(start);
-
-			// loops through all the neighbours of start node
-			for (int i = 0; i < adjacencyMap.get(start).size(); i++) {
-				// gets the neighbour from adjacency map
-				Node<String> next = adjacencyMap.get(start).get(i).getTarget();
-
-				// adds the node to the queue if it hasn't been visited and adds it to the
-				// visited set
-				if (!isVisited.contains(next)) {
-					queue.append(next);
-					isVisited.add(next);
-				}
+			// check if the node is visited or not already
+			if (!isVisited.contains(node)) {
+				// add to the node to visited array
+				isVisited.add(node);
+				// add node to queue
+				queue.append(node);
 			}
-		}
 
-		if (!rooted) {
-			// loop through all roots
-			for (Node<String> node : adjacencyMap.keySet()) {
+			// loops through while the queue is not 0 i.e. while the node has unvisited
+			// neighbours
+			while (queue.size() != 0) {
 
-				// check if the node is visited or not already
-				if (!isVisited.contains(node)) {
-					// add to the node to visited array
-					isVisited.add(node);
-					// add node to queue
-					queue.append(node);
+				// sets new node to queue and removes it (first in first out)
+				node = queue.get(0);
+				queue.remove(0);
+				// adds this node to the bfs list
+				bfs.add(node);
 
-					// loops through while the queue is not 0 i.e. while the node has unvisited
-					// neighbours
-					while (queue.size() != 0) {
+				// loops through all the neighbours of chosen node
+				for (int i = 0; i < adjacencyMap.get(node).size(); i++) {
+					// gets the neighbour from adjacency map
+					Node<String> next = adjacencyMap.get(node).get(i).getTarget();
 
-						// sets new node to queue and removes it (first in first out)
-						node = queue.get(0);
-						queue.remove(0);
-						// adds this node to the bfs list
-						bfs.add(node);
-
-						// loops through all the neighbours of chosen node
-						for (int i = 0; i < adjacencyMap.get(node).size(); i++) {
-							// gets the neighbour from adjacency map
-							Node<String> next = adjacencyMap.get(node).get(i).getTarget();
-
-							// adds the node to the queue if it hasn't been visited and adds it to the
-							// visited set
-							if (!isVisited.contains(next)) {
-								queue.append(next);
-								isVisited.add(next);
-							}
-						}
-
+					// adds the node to the queue if it hasn't been visited and adds it to the
+					// visited set
+					if (!isVisited.contains(next)) {
+						queue.append(next);
+						isVisited.add(next);
 					}
 				}
 
 			}
+
+			// if it is rooted then there's no other root sources hence no need to loop
+			// through the nodes
+			if (rooted) {
+				break;
+			}
+
 		}
 
 		// returns the bfs list
@@ -385,68 +367,45 @@ public class Graph {
 		// add start to top of stack
 		stack.push(start);
 
-		// loops through while the stack is not empty i.e. while the node has unvisited
-		// neighbours
-		while (!stack.isEmpty()) {
+		// loop through all roots
+		for (Node<String> node : adjacencyMap.keySet()) {
 
-			// sets new node to top of stack and removes it (last in last out)
-			start = stack.pop();
-			// adds this node to the dfs list
-			dfs.add(start);
-
-			// loops through all the neighbours of chosen node
-			for (int i = 0; i < adjacencyMap.get(start).size(); i++) {
-				// gets the neighbour from adjacency map
-				Node<String> next = adjacencyMap.get(start).get(i).getTarget();
-
-				// adds the node to the top of stack if it hasn't been visited and adds it to
-				// the
-				// visited set
-				if (!isVisited.contains(next)) {
-					stack.push(next);
-					isVisited.add(next);
-				}
+			// check if the node is visited or not already
+			if (!isVisited.contains(node) && !rooted) {
+				// add to the node to visited array
+				isVisited.add(node);
+				// add node to top of stack
+				stack.push(node);
 			}
+			// loops through while the stack is not empty i.e. while the node has unvisited
+			// neighbours
+			while (!stack.isEmpty()) {
 
-		}
+				// sets new node to top of stack and removes it (last in last out)
+				node = stack.pop();
+				// adds this node to the dfs list
+				dfs.add(node);
 
-		if (!rooted) {
-			// loop through all roots
-			for (Node<String> node : adjacencyMap.keySet()) {
+				// loops through all the neighbours of chosen node
+				for (int i = 0; i < adjacencyMap.get(node).size(); i++) {
+					// gets the neighbour from adjacency map
+					Node<String> next = adjacencyMap.get(node).get(i).getTarget();
 
-				// check if the node is visited or not already
-				if (!isVisited.contains(node)) {
-					// add to the node to visited array
-					isVisited.add(node);
-					// add node to top of stack
-					stack.push(node);
-
-					// loops through while the stack is not empty i.e. while the node has unvisited
-					// neighbours
-					while (!stack.isEmpty()) {
-
-						// sets new node to top of stack and removes it (last in last out)
-						node = stack.pop();
-						// adds this node to the dfs list
-						dfs.add(node);
-
-						// loops through all the neighbours of chosen node
-						for (int i = 0; i < adjacencyMap.get(node).size(); i++) {
-							// gets the neighbour from adjacency map
-							Node<String> next = adjacencyMap.get(node).get(i).getTarget();
-
-							// adds the node to the top of stack if it hasn't been visited and adds it to
-							// the
-							// visited set
-							if (!isVisited.contains(next)) {
-								stack.push(next);
-								isVisited.add(next);
-							}
-						}
-
+					// adds the node to the top of stack if it hasn't been visited and adds it to
+					// the
+					// visited set
+					if (!isVisited.contains(next)) {
+						stack.push(next);
+						isVisited.add(next);
 					}
 				}
 
+			}
+
+			// if it is rooted then there's no other root sources hence no need to loop
+			// through the nodes
+			if (rooted) {
+				break;
 			}
 		}
 
