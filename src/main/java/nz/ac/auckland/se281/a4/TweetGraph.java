@@ -44,17 +44,20 @@ public class TweetGraph extends Graph {
 	// search for a keyword in a tweet starting from a given node
 	public String searchTweet(TwitterHandle user, String tweetKeyword) {
 
-		// loops through all the texts of the input user
-		for (String text : getTweetsTexts(user)) {
-			// checks if the string contains the input keyword
-			if (text.contains(tweetKeyword)) {
-				// returns the text, the user, and the key word
-				return "The tweet string found is: " + text + "\nUser " + user.getName() + " {" + user.getID()
-						+ "} tweeted " + tweetKeyword;
+		for (Node<String> node : depthFirstSearch(user, true)) {
+			TwitterHandle handle = (TwitterHandle) node;
+			// loops through all the texts of the input user
+			for (String text : getTweetsTexts(handle)) {
+				// checks if the string contains the input keyword
+				if (text.contains(tweetKeyword)) {
+					// returns the text, the user, and the key word
+					return "The tweet string found is: " + text + "\nUser " + user.getName() + " {" + user.getID()
+							+ "} tweeted " + tweetKeyword;
+				}
 			}
 		}
 
-		// if no text with the keyword was found return null
-		return null;
+		// if no text with the keyword was found return following string
+		return "No successor of " + user.toString() + " tweeted " + tweetKeyword;
 	}
 }
