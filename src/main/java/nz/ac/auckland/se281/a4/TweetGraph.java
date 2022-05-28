@@ -45,19 +45,42 @@ public class TweetGraph extends Graph {
 	public String searchTweet(TwitterHandle user, String tweetKeyword) {
 
 		for (Node<String> node : depthFirstSearch(user, true)) {
-			TwitterHandle handle = (TwitterHandle) node;
-			// loops through all the texts of the input user
-			for (String text : getTweetsTexts(handle)) {
+			// gets handle by calling helper method
+			TwitterHandle handle = getHandle(node);
+			// loops through all the tweets of the input user
+			for (Tweet tweet : getTweets(node)) {
 				// checks if the string contains the input keyword
-				if (text.contains(tweetKeyword)) {
+				if (tweet.getTextString().contains(tweetKeyword)) {
 					// returns the text, the user, and the key word
-					return "The tweet string found is: " + text + "\nUser " + user.getName() + " {" + user.getID()
-							+ "} tweeted " + tweetKeyword;
+					return "The tweet string found is: " + tweet.getTextString() + "\nUser " + handle.getName() + " {"
+							+ handle.getID() + "} tweeted " + tweetKeyword;
 				}
 			}
 		}
 
 		// if no text with the keyword was found return following string
 		return "No successor of " + user.toString() + " tweeted " + tweetKeyword;
+	}
+
+	/**
+	 * Get the TwitterHandle for a given node
+	 * 
+	 * @param node
+	 * @return twitterhandle
+	 */
+	public TwitterHandle getHandle(Node<String> node) {
+
+		// loops through the key set of the map node tweets
+		for (TwitterHandle handle : nodeTweets.keySet()) {
+			// if the value of the node and the id of the handle equal then return the
+			// handle
+			if (handle.getID().equals(node.getValue())) {
+				return handle;
+			}
+		}
+
+		// if no handle was found return null
+		return null;
+
 	}
 }
