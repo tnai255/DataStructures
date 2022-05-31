@@ -310,16 +310,18 @@ public class Graph {
 				// adds this node to the bfs list
 				bfs.add(node);
 
-				// loops through all the neighbours of chosen node
-				for (int i = 0; i < adjacencyMap.get(node).size(); i++) {
-					// gets the neighbour from adjacency map
-					Node<String> next = adjacencyMap.get(node).get(i).getTarget();
+				if (adjacencyMap.keySet().contains(node)) {
+					// loops through all the neighbours of chosen node
+					for (int i = 0; i < adjacencyMap.get(node).size(); i++) {
+						// gets the neighbour from adjacency map
+						Node<String> next = adjacencyMap.get(node).get(i).getTarget();
 
-					// adds the node to the queue if it hasn't been visited and adds it to the
-					// visited set
-					if (!isVisited.contains(next)) {
-						queue.append(next);
-						isVisited.add(next);
+						// adds the node to the queue if it hasn't been visited and adds it to the
+						// visited set
+						if (!isVisited.contains(next)) {
+							queue.append(next);
+							isVisited.add(next);
+						}
 					}
 				}
 
@@ -386,17 +388,19 @@ public class Graph {
 				// adds this node to the dfs list
 				dfs.add(node);
 
-				// loops through all the neighbours of chosen node
-				for (int i = 0; i < adjacencyMap.get(node).size(); i++) {
-					// gets the neighbour from adjacency map
-					Node<String> next = adjacencyMap.get(node).get(i).getTarget();
+				if (adjacencyMap.keySet().contains(node)) {
+					// loops through all the neighbours of chosen node
+					for (int i = 0; i < adjacencyMap.get(node).size(); i++) {
+						// gets the neighbour from adjacency map
+						Node<String> next = adjacencyMap.get(node).get(i).getTarget();
 
-					// adds the node to the top of stack if it hasn't been visited and adds it to
-					// the
-					// visited set
-					if (!isVisited.contains(next)) {
-						stack.push(next);
-						isVisited.add(next);
+						// adds the node to the top of stack if it hasn't been visited and adds it to
+						// the
+						// visited set
+						if (!isVisited.contains(next)) {
+							stack.push(next);
+							isVisited.add(next);
+						}
 					}
 				}
 
