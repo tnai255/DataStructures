@@ -64,10 +64,10 @@ public class TweetGraph extends Graph {
 	}
 
 	/**
-	 * Get the TwitterHandle for a given node
+	 * Get the TwitterHandle for a given node by going through key set
 	 * 
-	 * @param node
-	 * @return twitterhandle
+	 * @param node (node with user id as its value)
+	 * @return twitterhandle (handle of user)
 	 */
 	public TwitterHandle getHandle(Node<String> node) {
 

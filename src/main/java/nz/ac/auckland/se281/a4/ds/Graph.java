@@ -81,7 +81,7 @@ public class Graph {
 		nodes = getAllNodes();
 		edges = getAllEdges();
 
-		// First checks if all the node in the set are in the adjacency map
+		// First checks if all the node in the set are in the nodes set
 		for (String element : set) {
 			Node<String> n = new Node<String>(element);
 
