@@ -31,8 +31,8 @@ public class LinkedList<T> {
 	 * This method returns a reference to a node whose position is at pos TODO:
 	 * Complete this method
 	 * 
-	 * @param pos: an integer specifying the position of the node to be located
-	 * @return Node: the reference to the Node at position pos
+	 * @param pos : an integer specifying the position of the node to be located
+	 * @return Node : the reference to the Node at position pos
 	 * @throws InvalidPositionException if position is less than 0 or greater than
 	 *                                  size-1
 	 */
