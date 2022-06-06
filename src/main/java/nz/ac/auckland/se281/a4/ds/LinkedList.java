@@ -120,8 +120,8 @@ public class LinkedList<T> {
 	 * This method adds an node at a given position in the List TODO: Complete this
 	 * method
 	 * 
-	 * @param pos:     an integer, which is the position
-	 * @param element: the element to insert
+	 * @param pos     an integer, which is the position
+	 * @param element the element to insert
 	 * @throws InvalidPositionException if position is less than 0 or greater than
 	 *                                  size
 	 */
@@ -146,7 +146,7 @@ public class LinkedList<T> {
 	/**
 	 * This method removes an node at a given position TODO: Complete this method
 	 *
-	 * @param pos: an integer, which is the position
+	 * @param pos : an integer, which is the position
 	 */
 	public void remove(int pos) throws InvalidPositionException {
 

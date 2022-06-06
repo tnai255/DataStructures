@@ -97,9 +97,9 @@ public class Graph {
 			// creates the desired reflexive edge
 			Edge<Node<String>> reflexive = new Edge<Node<String>>(node, node);
 
-			// checks if the edges set don't contain the desired reflexive edge
+			// checks if the edges set don't contain the desired reflexive edge in which
+			// case its false
 			if (!edges.contains(reflexive)) {
-				// then returns false
 				return false;
 			}
 		}
@@ -273,7 +273,8 @@ public class Graph {
 	 * This method returns a List nodes using the BFS (Breadth First Search)
 	 * algorithm
 	 * 
-	 * @param start A "TwitterHandle" in the graph
+	 * @param start  A "TwitterHandle" in the graph
+	 * @param rooted if the graph is rooted or not
 	 * @return List of nodes (as strings) using the BFS algorithm
 	 */
 	public List<Node<String>> breadthFirstSearch(Node<String> start, boolean rooted) {// name to breadthFirstSearch
@@ -352,7 +353,8 @@ public class Graph {
 	/**
 	 * This method returns a List nodes using the DFS (Depth First Search) algorithm
 	 * 
-	 * @param start A "TwitterHandle" in the graph
+	 * @param start  A "TwitterHandle" in the graph
+	 * @param rooted if the graph is rooted or not
 	 * @return List of nodes (as strings) using the DFS algorithm
 	 */
 	public List<Node<String>> depthFirstSearch(Node<String> start, boolean rooted) {
